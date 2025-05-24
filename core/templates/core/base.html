@@ -1,0 +1,21 @@
+<!-- core/templates/core/base.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Viandas Saludables</title>
+</head>
+<body>
+    <h1>Viandas Saludables</h1>
+    <nav>
+        <a href="{% url 'home' %}">Inicio</a> |
+        <a href="{% url 'agregar_producto' %}">Agregar Producto</a> |
+        <a href="{% url 'agregar_cliente' %}">Agregar Cliente</a> |
+        <a href="{% url 'agregar_pedido' %}">Agregar Pedido</a> |
+        <a href="{% url 'buscar_producto' %}">Buscar Producto</a>
+    </nav>
+    <hr>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
