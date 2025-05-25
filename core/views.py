@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ProductoForm, ClienteForm, PedidoForm
-from .models import Producto
+from .models import Producto, Cliente, Pedido
 
 def home(request):
     return render(request, 'core/home.html')
@@ -36,9 +36,28 @@ def agregar_pedido(request):
     return render(request, 'core/pedido_form.html', {'form': form})
 
 def buscar_producto(request):
-    productos = []
+    resultados = []
     query = ""
-    if request.GET.get('nombre'):
-        query = request.GET['nombre']
-        productos = Producto.objects.filter(nombre__icontains=query)
-    return render(request, 'core/buscar.html', {'productos': productos, 'query': query})
+
+    if request.method == "GET" and "nombre" in request.GET:
+        query = request.GET["nombre"]
+        resultados = Producto.objects.filter(nombre__icontains=query)
+
+    return render(request, "core/buscar.html", {
+        "resultados": resultados,
+        "query": query
+    })
+
+def buscar_pedido(request):
+    pedidos = []
+    query = ""
+
+    if request.method == "GET" and "cliente" in request.GET:
+        query = request.GET["cliente"]
+        pedidos = Pedido.objects.filter(cliente__nombre__icontains=query)
+
+    return render(request, "core/buscar_pedidos.html", {
+        "pedidos": pedidos,
+        "query": query
+    })
+

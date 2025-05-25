@@ -1,16 +1,24 @@
-# Python
+# Bytecode
 __pycache__/
 *.py[cod]
-*.sqlite3
 *.log
 
-# Django
-db.sqlite3
-*.pyc
-
-# VS Code
-.vscode/
-
+# Entorno virtual
 venv/
 env/
 ENV/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de bases de datos
+*.sqlite3
+
+# Configuración de VS Code
+.vscode/
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp

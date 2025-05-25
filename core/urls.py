@@ -7,4 +7,5 @@ urlpatterns = [
     path('cliente/agregar/', views.agregar_cliente, name='agregar_cliente'),
     path('pedido/agregar/', views.agregar_pedido, name='agregar_pedido'),
     path('buscar/', views.buscar_producto, name='buscar_producto'),
+    path('buscar_pedido/', views.buscar_pedido, name='buscar_pedido'),
 ]
