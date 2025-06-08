@@ -1,27 +1,40 @@
 {% extends 'core/base.html' %}
 {% block content %}
-    <h2>Buscar Pedidos</h2>
-    <form method="get">
-        <input type="text" name="cliente" placeholder="Buscar por cliente">
-        <button type="submit">Buscar</button>
+
+<div class="container">
+    <h2 class="mb-4"> Buscar Pedidos</h2>
+
+    <form method="get" class="row g-3 mb-4">
+        {% if user.is_staff or user.is_superuser %}
+            <div class="col-md-6">
+                <input type="text" name="cliente" class="form-control" placeholder="Buscar por cliente" value="{{ query }}">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        {% endif %}
     </form>
 
-
-<ul>
-{% for pedido in pedidos %}
-    <li>
-        Pedido de {{ pedido.cliente.nombre }} el {{ pedido.fecha|date:"d/m/Y H:i" }} -
-        Estado: {{ pedido.estado }}<br>
-        <strong>Productos:</strong>
-        <ul>
-        {% for producto in pedido.productos.all %}
-            <li>{{ producto.nombre }} - ${{ producto.precio }}</li>
-        {% empty %}
-            <li>No hay productos en este pedido.</li>
-        {% endfor %}
+    {% if resultados %}
+        <ul class="list-group">
+            {% for pedido in resultados %}
+                <li class="list-group-item mb-3">
+                    <h5> Pedido de {{ pedido.cliente.nombre }}</h5>
+                    <p><strong>Fecha:</strong> {{ pedido.fecha|date:"d/m/Y H:i" }} | <strong>Estado:</strong> {{ pedido.estado }}</p>
+                    <strong>Productos:</strong>
+                    <ul class="list-group mt-2">
+                        {% for producto in pedido.productos.all %}
+                            <li class="list-group-item">{{ producto.nombre }} - ${{ producto.precio }}</li>
+                        {% empty %}
+                            <li class="list-group-item">No hay productos en este pedido.</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
         </ul>
-    </li>
-{% endfor %}
-</ul>
+    {% else %}
+        <div class="alert alert-info">No se encontraron pedidos para el cliente especificado.</div>
+    {% endif %}
+</div>
 
 {% endblock %}

@@ -4,6 +4,10 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Guardar</button>
+        {% load static %}
+        {% block extra_head %}
+            {{ form.media }}
+        {% endblock %}
+        <button type="submit" class="btn btn-success">Guardar</button>
     </form>
 {% endblock %}

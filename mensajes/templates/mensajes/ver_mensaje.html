@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+<h2 class="mb-3">Mensaje de <strong>{{ mensaje.emisor.username }}</strong></h2>
+
+<ul class="list-group mb-4">
+    <li class="list-group-item">
+        <strong>Fecha:</strong> {{ mensaje.fecha|date:"d/m/Y H:i" }}
+    </li>
+    <li class="list-group-item">
+        <strong>Contenido:</strong>
+        <p class="mt-2">{{ mensaje.contenido }}</p>
+    </li>
+</ul>
+
+<h3 class="mb-3">Responder</h3>
+
+<form method="post" class="border p-4 rounded bg-light">
+    {% csrf_token %}
+    <div class="mb-3">
+        <textarea name="contenido" rows="4" class="form-control" placeholder="Escribí tu respuesta..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar respuesta</button>
+    <a href="{% url 'bandeja' %}" class="btn btn-secondary ms-2">Volver a bandeja</a>
+</form>
+
+{% endblock %}

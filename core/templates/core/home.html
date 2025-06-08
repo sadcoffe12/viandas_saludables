@@ -1,5 +1,37 @@
 {% extends 'core/base.html' %}
+
 {% block content %}
-    <h2>Bienvenido a Viandas Saludables</h2>
-    <p>Usá el menú para navegar.</p>
+<div class="container mt-4">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Bienvenido a Viandas Saludables</h1>
+            <p class="col-md-8 fs-4">Ordená tus viandas caseras de forma rápida y saludable.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    {% if user.is_authenticated %}
+        <div class="d-flex flex-wrap gap-2">
+
+            {% if user.is_staff %}
+                <a class="btn btn-primary" href="{% url 'agregar_producto' %}">Agregar Producto</a>
+                <a class="btn btn-primary" href="{% url 'agregar_cliente' %}">Agregar Cliente</a>
+            {% endif %}
+            <a class="btn btn-primary" href="{% url 'agregar_pedido' %}">Agregar Pedido</a>
+        </div>
+    {% endif %}
+</div>
+
+<div class="container mt-4">
+    {% if user.is_authenticated %}
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-primary" href="{% url 'buscar_producto' %}">Buscar Viandas</a>
+            <a class="btn btn-primary" href="{% url 'buscar_pedido' %}">Buscar Pedido</a>
+        </div>
+    {% endif %}
+</div>
+
+
+
 {% endblock %}

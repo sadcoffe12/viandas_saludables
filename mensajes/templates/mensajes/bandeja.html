@@ -1,0 +1,38 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+<h2 class="mb-4">Bandeja de entrada</h2>
+
+{% if mensajes %}
+    <div class="list-group">
+        {% for mensaje in mensajes %}
+            <div class="list-group-item mb-3 shadow-sm rounded">
+
+                <p class="mb-1">
+                    {% if not mensaje.leido %}
+                        <span class="badge bg-warning text-dark">Nuevo</span>
+                    {% endif %}
+                    <strong>{{ mensaje.emisor.username }}</strong>:
+                    <span>{{ mensaje.contenido|truncatechars:100 }}</span>
+                </p>
+                <p class="text-muted mb-2"><small>{{ mensaje.fecha|date:"d/m/Y H:i" }}</small></p>
+
+                {% if user.is_staff or user.is_superuser %}
+                    <form method="post" action="{% url 'responder_rapido' mensaje.id %}">
+                        {% csrf_token %}
+                        <div class="mb-2">
+                            <textarea name="contenido" rows="2" class="form-control" placeholder="Escribí una respuesta..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary">Responder</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">No tienes mensajes.</div>
+{% endif %}
+
+<a href="{% url 'enviar_mensaje' %}" class="btn btn-success mt-4">Enviar nuevo mensaje</a>
+
+{% endblock %}

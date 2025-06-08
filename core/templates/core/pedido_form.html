@@ -1,9 +1,14 @@
-{% extends 'core/base.html' %}
+{% extends "core/base.html" %}
+
 {% block content %}
-    <h2>Agregar Pedido</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar</button>
-    </form>
+<div class="container mt-4">
+    <div class="card shadow p-4">
+        <h2 class="mb-4">Agregar Pedido</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Guardar Pedido</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
